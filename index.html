@@ -4,12 +4,23 @@
     <title>My Profile</title>
     <meta name='chartset' value='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,900" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="style.css">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-136667564-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-136667564-1');
+    </script>
   </head>
 
   <body>
@@ -42,7 +53,8 @@
       </div>
 
       <div class="card-white">
-        <div class="typeform-widget" data-url="https://kevin79.typeform.com/to/bNQvSi" style="width: 100%; height: 500px;"></div> <script> (function() { var qs,js,q,s,d=document, gi=d.getElementById, ce=d.createElement, gt=d.getElementsByTagName, id="typef_orm", b="https://embed.typeform.com/"; if(!gi.call(d,id)) { js=ce.call(d,"script"); js.id=id; js.src=b+"embed.js"; q=gt.call(d,"script")[0]; q.parentNode.insertBefore(js,q) } })() </script> <div style="font-family: Sans-Serif;font-size: 12px;color: #999;opacity: 0.5; padding-top: 5px;"> powered by <a href="https://admin.typeform.com/signup?utm_campaign=bNQvSi&utm_source=typeform.com-189426-Basic&utm_medium=typeform&utm_content=typeform-embedded-poweredbytypeform&utm_term=EN" style="color: #999" target="_blank">Typeform</a> </div>
+        <div class="typeform-widget" data-url="https://kevin79.typeform.com/to/bNQvSi/?latitude=xxxxx&longitude=xxxxx" style="width: 100%; height: 500px;"></div>
+        <div style="font-family: Sans-Serif;font-size: 12px;color: #999;opacity: 0.5; padding-top: 5px;"> powered by <a href="https://admin.typeform.com/signup?utm_campaign=bNQvSi&utm_source=typeform.com-189426-Basic&utm_medium=typeform&utm_content=typeform-embedded-poweredbytypeform&utm_term=EN" style="color: #999" target="_blank">Typeform</a> </div>
       </div>
 
       <div class="card-white mb-4">
@@ -75,6 +87,15 @@
 
     <script>
       navigator.geolocation.getCurrentPosition((position) => {
+        var widget = $('.typeform-widget');
+        var url = widget.attr('data-url');
+        var regexLat = /latitude=xxxxx/;
+        var regexLng = /longitude=xxxxx/;
+        url = url.replace(regexLat, 'latitude=' + position.coords.latitude);
+        url = url.replace(regexLng, 'longitude=' + position.coords.longitude);
+        widget.attr('data-url', url);
+        (function() { var qs,js,q,s,d=document, gi=d.getElementById, ce=d.createElement, gt=d.getElementsByTagName, id="typef_orm", b="https://embed.typeform.com/"; if(!gi.call(d,id)) { js=ce.call(d,"script"); js.id=id; js.src=b+"embed.js"; q=gt.call(d,"script")[0]; q.parentNode.insertBefore(js,q) } })()
+
         mapboxgl.accessToken = 'pk.eyJ1Ijoia3Jva3JvYiIsImEiOiJjam83MjVrbWkwbWNoM3FwN2VhMm81eGRzIn0.yM3wkq5LJd8NeSYyPyTY4w';
         var map = new mapboxgl.Map({
           container: 'map',
